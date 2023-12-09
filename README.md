@@ -1,0 +1,1 @@
+# python_work_with_class
