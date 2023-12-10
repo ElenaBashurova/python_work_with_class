@@ -54,10 +54,18 @@ class TestCart:
         На некоторые методы у вас может быть несколько тестов.
         Например, негативные тесты, ожидающие ошибку (используйте pytest.raises, чтобы проверить это)
     """
-    def test_add_products_to_cart(self, goods, cart):
+
+    def test_add_products_to_cart1(self, product, cart):
+        cart.add_product(product, 5)
+        assert cart.products == {product: 5}
+        print('Товары в корзине')
+
+    def test_add_products_to_cart2(self, goods, cart):
         cart.add_product(goods, 10)
         assert 10 == cart.products.get(goods)
         print('Товары успешно добавлены в корзину')
+
+
 
     def test_clear_goods(self, cart, goods):
         cart.clear()
@@ -69,6 +77,16 @@ class TestCart:
         assert 5 == cart.products.get(goods)
         cart.remove_product(goods, 1)
         assert 4 == cart.products.get(goods)
+        cart.remove_product(goods, 1)
+        assert 3 == cart.products.get(goods)
+        cart.remove_product(goods, 3)
+        assert 0 == cart.products.get(goods)
+        cart.remove_product(goods, 4)
+        assert goods not in cart.products
+        cart.add_product(goods, 10)
+        cart.remove_product(goods)
+        assert cart.products =={}
+
 
 
     def test_buy_goods(self, cart, goods):
